@@ -11,21 +11,23 @@ class Compte
      * Data variables for the class
      * @var [string, int]
      */
-    protected $libelle;
-    protected $solde;
-    protected $devise_monetaire;
-    
+    protected $_libelle;
+    protected $_solde;
+    protected $_devise_monetaire;
+    protected $_titulaire;
     /**
      * __construct function Its allows us recuperate data from class indentation
      * @param string $libelle
      * @param int $solde
      * @param string $devise_monetaire
      */
-    public function __construct($libelle, $solde, $devise_monetaire)
+    public function __construct($libelle, $solde, $devise_monetaire, $titulaire)
     {
-        $this->libelle = $libelle;
-        $this->solde = $solde;
-        $this->devise_monetaire = $devise_monetaire;
+        $this->_libelle             = $libelle;
+        $this->_solde               = $solde;
+        $this->_devise_monetaire    = $devise_monetaire;
+        $this->_titulaire           = $titulaire;
+        $titulaire->incluireCompte($this);
     }
 
     /**
@@ -33,7 +35,7 @@ class Compte
      */
     public function getLibelle()
     {
-        return $this->libelle;
+        return $this->_libelle;
     }
 
     /**
@@ -41,7 +43,7 @@ class Compte
      */
     public function setLibelle($libelle)
     {
-        $this->libelle = $libelle;
+        $this->_libelle = $libelle;
 
         return $this;
     }
@@ -51,7 +53,7 @@ class Compte
      */
     public function getSolde()
     {
-        return $this->solde;
+        return $this->_solde;
     }
 
     /**
@@ -59,7 +61,7 @@ class Compte
      */
     public function setSolde($solde)
     {
-        $this->solde = $solde;
+        $this->_solde = $solde;
 
         return $this;
     }
@@ -69,7 +71,7 @@ class Compte
      */
     public function getDevise_monetaire()
     {
-        return $this->devise_monetaire;
+        return $this->_devise_monetaire;
     }
 
     /**
@@ -77,7 +79,7 @@ class Compte
      */
     public function setDevise_monetaire($devise_monetaire)
     {
-        $this->devise_monetaire = $devise_monetaire;
+        $this->_devise_monetaire = $devise_monetaire;
 
         return $this;
     }
@@ -88,7 +90,7 @@ class Compte
      */
     public function crediter($amount)
     {
-       $this->solde += $amount;
+        $this->_solde += $amount;
     }
 
     /**
@@ -97,7 +99,7 @@ class Compte
      */
     public function debiter($amount)
     {
-        $this->solde -= $amount;
+        $this->_solde -= $amount;
     }
 
     /**
@@ -108,5 +110,28 @@ class Compte
     {
         $this->debiter($amount);
         $debiteur->crediter($amount);
+    }
+
+    public function getComptesInfos()
+    {
+        echo "<h2>COMPTE</h2>";
+        echo "<table>";
+        echo "    <tr>";
+        echo "        <th>LIBELLE</th>";
+        echo "        <th>SOLDE</th>";
+        echo "        <th>DEVISE MONETAIRE</th>";
+        echo "    </tr>";
+        echo "    <tr>";
+        echo "        <th>" . $this->_libelle . "</th>";
+        echo "        <th>" . $this->_solde . "</th>";
+        echo "        <th>" . $this->_devise_monetaire . "</th>";
+        echo "    </tr>";
+        echo "    <tr>";
+        echo "        <th>TITULAIRE</th>";
+        echo "    </tr>";
+        echo "    <tr>";
+        echo "        <th>" . $this->_titulaire . "</th>";
+        echo "    </tr>";
+        echo "</table>";
     }
 }
