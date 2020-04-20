@@ -40,7 +40,7 @@ $c1_t1->debiter(50);
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<!--I creates two tables with and accounts infos-->
+<!--I creates tables with beneficiary's and accounts infos-->
 <body>
 
     <?php $t1->getTitulaireInfos(); ?>
