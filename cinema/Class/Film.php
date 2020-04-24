@@ -127,7 +127,7 @@ class Film
                 echo $acteur[1].", ";
             }
         }
-        echo "</th>";
+        echo "      </th>";
         echo "  </tr>";
         echo "</table>";
     }
