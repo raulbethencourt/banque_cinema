@@ -131,6 +131,4 @@ class Film
         echo "  </tr>";
         echo "</table>";
     }
-
-   
 }
