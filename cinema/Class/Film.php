@@ -26,9 +26,8 @@ class Film
      * @param integer $duree
      * @param string $synopsis
      * @param mixed $realisateur
-     * @param mixed $casting
      */
-    public function __construct(string $titre, string $sortie, int $duree, string $synopsis, Genre $genre, Realisateur $realisateur, Casting $casting)
+    public function __construct(string $titre, string $sortie, int $duree, string $synopsis, Genre $genre, Realisateur $realisateur)
     {
         $this->_titre       = $titre;
         $this->_sortie      = $sortie;
@@ -36,10 +35,9 @@ class Film
         $this->_synopsis    = $synopsis;
         $this->_genre       = $genre;
         $this->_realisateur = $realisateur;
-        $this->_casting     = $casting;
-        $realisateur->incluireFilmRealisateur($this);
-        $genre->incluireFilmGenre($this);
-        $casting->incluireFilmCasting($this);
+        $this->_casting     = [];
+        $realisateur->incluireFilm($this);
+        $genre->incluireFilm($this); 
     }
 
     /**
@@ -75,17 +73,6 @@ class Film
     }
 
     /**
-     * Set the value of _synopsis
-     * @return  self
-     */ 
-    public function set_synopsis(string $_synopsis)
-    {
-        $this->_synopsis = $_synopsis;
-
-        return $this;
-    }
-
-    /**
      * Get the value of _realisateur
      */ 
     public function get_realisateur()
@@ -93,17 +80,56 @@ class Film
         return $this->_realisateur;
     }
 
-     /**
-     * Get the value of _acteurs
-     */ 
-    public function get_acteurs()
+    /**
+     * This function includes Casting into $_casting
+     * @param [Casting] $casting
+     */
+    public function incluireCasting($casting)
     {
-        return $this->_acteurs;
+        $this->_casting[] = $casting;
     }
-
-    public function setFilm( $film)
+    
+    /**
+     * This function displays a table with all film information
+     * @return [HTML]
+     */
+    public function setFilm()
     {
-        
+        echo "<table>";
+        echo "  <tr>";
+        echo "      <th>TITRE</th>";
+        echo "      <th>DATE SORTIE</th>";
+        echo "      <th>DUREE</th>";
+        echo "  </tr>";
+        echo "  <tr>";
+        echo "      <th>" . $this->_titre . "</th>";
+        echo "      <th>" . $this->_sortie . "</th>";
+        echo "      <th>" . $this->_duree . " minutes</th>";
+        echo "  </tr>";
+        echo "  <tr>";
+        echo "      <th>SYNOPSIS</th>";
+        echo "      <th>GENRE</th>";
+        echo "      <th>REALISATEUR</th>";
+        echo "  </tr>";
+        echo "  <tr>";
+        echo "      <th>" . $this->_synopsis . "</th>";
+        echo "      <th>" . $this->_genre->get_type() . "</th>";
+        echo "      <th>" . $this->_realisateur . "</th>";
+        echo "  </tr>";
+        echo "  <tr>";
+        echo "      <th>ACTEURS</th>";
+        echo "  </tr>";
+        echo "  <tr>";
+        echo "      <th>";
+        foreach ($this->_casting as $casting) {
+            $casting->get_role_acteur();
+            foreach ($casting->get_role_acteur()  as $acteur) {
+                echo $acteur[1].", ";
+            }
+        }
+        echo "</th>";
+        echo "  </tr>";
+        echo "</table>";
     }
 
    

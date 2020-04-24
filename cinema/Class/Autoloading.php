@@ -28,4 +28,11 @@ class Autoloading
             require 'Class/' . $class . '.php';
         }        
     }
+
+    /* Autoloader for simple classes to include in index file
+    <?php
+    spl_autoload_register(function ($class) {
+        require 'classes/'.$class.'.php';
+    });
+    */
 }

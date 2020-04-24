@@ -2,6 +2,14 @@
     box-sizing: border-box;
 }
 
+table{
+    margin: 15px 0px;
+}
 th {
     border: 2px solid black;
+
+}
+
+li {
+    font-size: 17px;
 }
